@@ -15,7 +15,7 @@
 											 (x 0)
 											 (y 0)
 											 (speed 5)
-											 (player-img (load-png-image "player.png")))
+											 (player-img (load-png-image "player.bmp")))
 
 									 (sdl:update-display)
 
