@@ -1,0 +1,26 @@
+(defclass player ()
+					((x
+						:initarg :x
+						:initform 0
+						:documentation "x-coordinate of center point")
+					 (y
+						:initarg :y
+						:initform 0
+						:documentation "y-coordinate of center point")
+					 (width
+						:initarg :width
+						:initform 64
+						:documentation "width")
+					 (height
+						:initarg :height
+						:initform 64
+						:documentation "height")
+					 (speed
+						:initarg :speed
+						:initform 5
+						:documentation "speed")
+					 (image
+						:initarg :image
+						:initform (error "designate the file of the image of own machine.")
+						:documentation "image")))
+
