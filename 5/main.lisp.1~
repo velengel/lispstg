@@ -3,7 +3,7 @@
 (load "key-state" :external-format :utf-8)
 
 (defun load-png-image (source-file)
-	(sdl:convert-to-display-format :surface (sdl:load-image source-file )
+	(sdl:convert-to-display-format :surface (sdl:load-image source-file)
 																 :enable-alpha t
 																 :pixel-alpha t))
 
@@ -15,7 +15,7 @@
 											 (x 0)
 											 (y 0)
 											 (speed 5)
-											 (player-img (load-png-image "player.png")))
+											 (player-img (load-png-image "player.bmp")))
 
 									 (sdl:update-display)
 

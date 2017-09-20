@@ -24,3 +24,40 @@
 						:initform (error "designate the file of the image of own machine.")
 						:documentation "image")))
 
+(defgeneric update-player (player key-state game-field)
+						(:documentation "update the state of own machine"))
+(defgeneric draw-player (player game-field)
+						(:documentation "draw own machine"))
+
+(defmethod update-player ((player player)
+													(key-state key-state)
+													(game-field game-field))
+					 (move-by-input player key-state)
+					 (fix-position player game-field))
+
+(defmethod move-by-point ((player player) (key-state key-state))
+					 (let ((dx 0) (dy 0))
+						 (with-slots (up down right left) key-state
+												 (with-slots (speed) player
+																		 (cond (right (incf dx speed))
+																					 (left (decf dx speed)))
+																		 (cond (up (decf dy speed))
+																					 (down (incf dy speed)))))
+						 (when (and (/= dx 0) (/= dy 0))
+							 (setf dx (/ dx +sqrt-2+) dy (/ dy +sqrt-2+)))
+						 (with-slots (x y) player
+												 (incf x dx)
+												 (incf y dy))))
+
+(defmethod fix-position ((player player) (game-field game-field))
+					 (with-slots (x y width height) player
+											 (let ((field-width (game-field-width game-field))
+														 (field-height (game-field-height game-field))
+														 (width/2 (/ width 2))
+														 (height/2 (/ height 2)))
+												 (when (< (- x width/2) 0) (setf x width/2))
+												 (when (< (- y height/2) 0) (setf y height/2))
+												 (when (> (+ x width/2) field-width)
+													 (setf x (- field-width width/2)))
+												 (when (> (+ y height/2) field-height)
+													 (setf y (- field-height height/2))))))
