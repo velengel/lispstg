@@ -35,7 +35,7 @@
 					 (move-by-input player key-state)
 					 (fix-position player game-field))
 
-(defmethod move-by-point ((player player) (key-state key-state))
+(defmethod move-by-input ((player player) (key-state key-state))
 					 (let ((dx 0) (dy 0))
 						 (with-slots (up down right left) key-state
 												 (with-slots (speed) player
