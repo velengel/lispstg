@@ -25,7 +25,7 @@
 																							 :width 64
 																							 :height 64
 																							 :speed 5
-																							 :image (load-png-image "test.png"))))
+																							 :image (load-png-image "player.bmp"))))
 
 									 (sdl:update-display)
 
