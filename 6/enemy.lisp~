@@ -45,5 +45,3 @@
 					       (- x (/ width 2))))
 				     (round (+ (game-field-y game-field)
 					       (- y (/ height 2)))))))
-
-(defgeneric out-of-field-p
