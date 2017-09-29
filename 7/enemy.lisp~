@@ -26,7 +26,14 @@
    (image
     :initarg :image
     :initform (error "designate the image file of enemy.")
-    :documentation "image")))
+    :documentation "image")
+   (attack-region-radius
+     :initarg :attack-radius
+     :initform 10
+     :documentation "attack region radius")
+   (damage-region
+     :accessor damage-region
+     :documentation "damage-region")))
 
 (defgeneric update-enemy (enemy)
   (:documentation "update the state of enemys"))
@@ -58,4 +65,25 @@
           (> (- x width/2) (game-field-width game-field))
           (> (- y height/2) (game-field-height game-field))))))
 
+(defmethod initialize-instance :after ((enemy enemy) &key)
+  (with-slots (attack-region attack-region-radius x y) enemy
+    (setf attack-region (make-instance 'circle-region
+                                       :x x
+                                       :y y
+                                       :r attack-region-radius)))
+  (with-slots (damage-region damage-region-radius x y) enemy
+    (setf damage-region (make-instance 'circle-region
+                                       :x x
+                                       :y y
+                                       :r damage-region-radius))))
+
+(defmethod update-enemy ((enemy enemy))
+  (flet ((update-hit-region (x y region)
+                            (setf (circle-x region) x)
+                            (setf (circle-y region) y)))
+    (with-slots (x y vx vy) enemy
+      (incf x vx)
+      (incf y vy)
+      (update-hit-region x y (attack-region enemy))
+      (update-hit-region x y (damage-region enemy)))))
 

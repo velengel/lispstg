@@ -57,6 +57,12 @@
 									 (sdl:clear-display sdl:*black*)
 									 (update-player player current-key-state game-field)
 									 (update-enemies enemy-manager)
+                   (gc-enemies enemy-manager game-field)
+
 									 (draw-player player game-field)
 									 (draw-enemies enemy-manager game-field)
+                   (with-slots (enemies) enemy-manager
+                     (sdl:draw-string-solid-* (format nil "~a" (length enemies))
+                                              500 400))
+
 									 (sdl:update-display))))))

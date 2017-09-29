@@ -1,0 +1,31 @@
+(defclass hit-test-region ()
+  ())
+
+(defclass circle-region (hit-test-region)
+                         ((x
+                            :initarg :x
+                            :initform 0
+                            :accessor circle-x
+                            :documentation "x-coordinate of center")
+                          (y
+                            :initarg :y
+                            :initform 0
+                            :accessor ciecle-y
+                            :documentation "y-coordinate of center")
+                          (r
+                            :initarg :r
+                            :initform 0
+                            :accessor circle-radius
+                            :documentation "radius")))
+
+(defgeneric hit-test (region-1 region-2)
+            (:documentation "Do per decision"))
+
+(defmethod hit-test ((region-1 ciecle-region) (region-2 circle-region))
+  (let ((dx (- (circle-x region-1) (circle-y region-2)))
+        (dy (- (circle-y region-1) (circle-y region-2)))
+        (rs (+ (circle-radius region-1) (circle-radius region-2))))
+    (<= (+ (* dx dx) (* dy dy))
+        (* rs rs))))
+
+
